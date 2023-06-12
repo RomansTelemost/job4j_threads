@@ -8,7 +8,7 @@ public class ConcurrentOutput {
         another.start();
         System.out.println(Thread.currentThread().getName());
 
-        Thread another2 = new Thread(
+        Thread second = new Thread(
                 new Runnable() {
                     @Override
                     public void run() {
@@ -16,6 +16,6 @@ public class ConcurrentOutput {
                     }
                 }
         );
-        another2.start();
+        second.start();
     }
 }
