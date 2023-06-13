@@ -9,12 +9,7 @@ public class ConcurrentOutput {
         System.out.println(Thread.currentThread().getName());
 
         Thread second = new Thread(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        System.out.println(Thread.currentThread().getName());
-                    }
-                }
+                () -> System.out.println(Thread.currentThread().getName())
         );
         second.start();
     }
