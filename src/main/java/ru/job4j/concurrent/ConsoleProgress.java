@@ -15,7 +15,9 @@ public class ConsoleProgress implements Runnable {
         var progressIndex = 0;
         try {
             while (!Thread.currentThread().isInterrupted()) {
-                progressIndex = progressIndex == process.length ? progressIndex = 0 : progressIndex;
+                if (progressIndex == process.length) {
+                    progressIndex = 0;
+                }
                 System.out.print("\r load: " + process[progressIndex]);
                 progressIndex++;
                 Thread.sleep(500);
