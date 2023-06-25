@@ -8,11 +8,20 @@ public class ThreadStop {
                     int count = 0;
                     while (!Thread.currentThread().isInterrupted()) {
                         System.out.println(count++);
+                        try {
+                            Thread.sleep(10000);
+                        } catch (InterruptedException i) {
+                            System.out.println(i.getMessage());
+                            System.out.println(Thread.currentThread().isInterrupted());
+                            System.out.println(Thread.currentThread().getState());
+                            Thread.currentThread().interrupt();
+                        }
                     }
                 }
         );
         thread.start();
         Thread.sleep(1000);
         thread.interrupt();
+        thread.join();
     }
 }
