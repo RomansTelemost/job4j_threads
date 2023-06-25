@@ -1,12 +1,9 @@
 package ru.job4j.concurrent;
 
 import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class WFileGet implements Runnable {
 
@@ -49,13 +46,33 @@ public class WFileGet implements Runnable {
         }
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws Exception {
+        validateIncomingParameters(args);
         String url = args[0];
         int speed = Integer.parseInt(args[1]);
         String fileName = args[2];
-
         Thread wget = new Thread(new WFileGet(url, speed, fileName));
         wget.start();
         wget.join();
+    }
+
+    private static void validateIncomingParameters(String[] args) throws Exception {
+        if (args.length != 3) {
+            throw new IllegalArgumentException("Expected 3 parameters. Downloaded URL resources, speed and output file name");
+        }
+
+        if (!args[0].startsWith("https://")) {
+            throw new IllegalArgumentException("Url must start from https://");
+        }
+
+        try {
+            Integer.parseInt(args[1]);
+        } catch (NumberFormatException nfe) {
+            throw new IllegalArgumentException("Second parameter 'Speed' must contain a number value");
+        }
+
+        if (args[2].indexOf('.') == -1) {
+            throw new IllegalArgumentException("Third parameter must contain the extension");
+        }
     }
 }
