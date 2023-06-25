@@ -22,7 +22,7 @@ public class ConsoleProgress implements Runnable {
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException i) {
-                    System.out.println("\r"+i.getMessage());
+                    System.out.println("\r" + i.getMessage());
                     Thread.currentThread().interrupt();
                 }
             }
