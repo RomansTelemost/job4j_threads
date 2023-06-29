@@ -26,19 +26,15 @@ public class WFileGet implements Runnable {
             byte[] buff = new byte[1024];
             int readBytes;
 
-            LocalDateTime dateOfStartLoading = LocalDateTime.now();
+            LocalDateTime lastDelay = LocalDateTime.now();
             while ((readBytes = bis.read(buff)) != -1) {
-                int secondPass = LocalDateTime.now().getSecond() - dateOfStartLoading.getSecond();
-
                 fos.write(buff, 0, readBytes);
                 alreadyDownloadBytes += readBytes;
-
-                if (secondPass > 0
-                        && alreadyDownloadBytes / secondPass > 0
-                        && (alreadyDownloadBytes / secondPass) > (speed * secondPass)) {
-                    int mustDownload = alreadyDownloadBytes - (speed * secondPass);
-                    int delaySeconds = (mustDownload / speed) - secondPass;
-                    Thread.sleep(delaySeconds * 1000);
+                if (alreadyDownloadBytes >= speed
+                        && LocalDateTime.now().getSecond() - lastDelay.getSecond() >= 1) {
+                    Thread.sleep(1000);
+                    lastDelay = LocalDateTime.now();
+                    alreadyDownloadBytes = 0;
                 }
             }
         } catch (Exception e) {
