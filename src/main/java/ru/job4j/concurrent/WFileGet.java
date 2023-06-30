@@ -3,7 +3,6 @@ package ru.job4j.concurrent;
 import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.net.URL;
-import java.time.LocalDateTime;
 
 public class WFileGet implements Runnable {
 
@@ -26,14 +25,16 @@ public class WFileGet implements Runnable {
             byte[] buff = new byte[1024];
             int readBytes;
 
-            LocalDateTime lastDelay = LocalDateTime.now();
+            long lastDelayMillisec = System.currentTimeMillis();
             while ((readBytes = bis.read(buff)) != -1) {
                 fos.write(buff, 0, readBytes);
                 alreadyDownloadBytes += readBytes;
+
+                long delayTime = System.currentTimeMillis() - lastDelayMillisec;
                 if (alreadyDownloadBytes >= speed
-                        && LocalDateTime.now().getSecond() - lastDelay.getSecond() >= 1) {
-                    Thread.sleep(1000);
-                    lastDelay = LocalDateTime.now();
+                        && delayTime >= 1000) {
+                    Thread.sleep(delayTime);
+                    lastDelayMillisec = System.currentTimeMillis();
                     alreadyDownloadBytes = 0;
                 }
             }
