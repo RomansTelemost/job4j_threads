@@ -25,12 +25,10 @@ public final class ParseFile {
     private String parseFile(Predicate<Character> filter) {
         StringBuilder output = new StringBuilder();
         try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file))) {
-            byte[] buff = new byte[bis.available()];
-            while (bis.read(buff) > 0) {
-                for (int i = 0; buff.length > i; i++) {
-                    if (filter.test((char) buff[i])) {
-                        output.append((char) buff[i]);
-                    }
+            int data;
+            while ((data = bis.read()) != -1) {
+                if (filter.test((char) data)) {
+                    output.append((char) data);
                 }
             }
         } catch (IOException io) {
