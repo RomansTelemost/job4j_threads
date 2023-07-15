@@ -12,6 +12,7 @@ public class SingleLockListTest {
 
     @Test
     public void whenIt() {
+
         var init = new ArrayList<Integer>();
         SingleLockList<Integer> list = new SingleLockList<>(init);
         list.add(1);
@@ -22,6 +23,7 @@ public class SingleLockListTest {
 
     @Test
     public void whenAdd() throws InterruptedException {
+
         var init = new ArrayList<Integer>();
         SingleLockList<Integer> list = new SingleLockList<>(init);
         Thread first = new Thread(() -> list.add(1));
