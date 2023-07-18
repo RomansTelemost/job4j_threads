@@ -21,7 +21,7 @@ public class AccountStorage {
     }
 
     public synchronized boolean delete(int id) {
-        return accounts.remove(id) == null;
+        return accounts.remove(id) != null;
     }
 
     public synchronized Optional<Account> getById(int id) {
@@ -33,7 +33,7 @@ public class AccountStorage {
         Optional<Account> toAccount = getById(toId);
 
         if ((fromAccount.isEmpty() || toAccount.isEmpty())
-                && fromAccount.get().amount() < amount) {
+                || fromAccount.get().amount() < amount) {
             return false;
         }
 
