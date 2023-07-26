@@ -4,7 +4,7 @@ import java.util.concurrent.Semaphore;
 
 public class SemaphoreExample {
 
-    public static void main(String[] args) throws InterruptedException{
+    public static void main(String[] args) throws InterruptedException {
         Semaphore sem = new Semaphore(1);
         Runnable task = () -> {
             try {
