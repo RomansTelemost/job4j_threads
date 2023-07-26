@@ -21,5 +21,6 @@ public class SemaphoreExample {
         System.out.println("sa");
         Thread.sleep(3000);
         sem.release(1);
+        sem.release(2);
     }
 }
