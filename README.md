@@ -8,3 +8,5 @@ Chapters:
 6 - Java threads pools
 7 - NIO and multithreading
 8 - Control questions
+
+"В курсе производилась работа с ветками git."
