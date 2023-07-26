@@ -4,11 +4,11 @@ import java.util.concurrent.Semaphore;
 
 public class SemaphoreExample {
 
-    public static void main(String[] args) throws InterruptedException{
-        Semaphore sem = new Semaphore(1);
+    public static void main(String[] args) throws InterruptedException {
+        Semaphore sem = new Semaphore(0);
         Runnable task = () -> {
             try {
-                sem.acquire(2);
+                sem.acquire(3);
                 System.out.println("Нить выполнила задачу");
                 sem.release();
             } catch (InterruptedException e) {
@@ -21,5 +21,7 @@ public class SemaphoreExample {
         System.out.println("sa");
         Thread.sleep(3000);
         sem.release(1);
+        Thread.sleep(3000);
+        sem.release(2);
     }
 }
