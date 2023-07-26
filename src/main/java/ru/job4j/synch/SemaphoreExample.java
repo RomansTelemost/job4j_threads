@@ -22,5 +22,6 @@ public class SemaphoreExample {
         Thread.sleep(3000);
         sem.release(1);
         sem.release(2);
+        sem.release(3);
     }
 }
