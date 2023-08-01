@@ -31,7 +31,6 @@ public class SimpleBlockingQueue<T> {
         synchronized (queue) {
             if (queue.size() == 0) {
                 queue.wait();
-
             }
             T value = queue.poll();
             queue.notify();
