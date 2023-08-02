@@ -17,9 +17,17 @@ public class SimpleBlockingQueue<T> {
         this.size = size;
     }
 
-    public synchronized void offer(T value) throws InterruptedException, IllegalStateException {
+    public boolean isEmpty() {
+        return queue.size() != 0;
+    }
+
+    public synchronized void offer(T value) {
         while (queue.size() == size) {
-            wait();
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         queue.offer(value);
         notify();
