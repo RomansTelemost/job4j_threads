@@ -19,18 +19,18 @@ public class SimpleBlockingQueue<T> {
 
     public synchronized void offer(T value) throws InterruptedException, IllegalStateException {
         while (queue.size() == size) {
-            queue.wait();
+            wait();
         }
         queue.offer(value);
-        queue.notify();
+        notify();
     }
 
     public synchronized T poll() throws InterruptedException {
         if (queue.size() == 0) {
-            queue.wait();
+            wait();
         }
         T value = queue.poll();
-        queue.notify();
+        notify();
         return value;
     }
 }
