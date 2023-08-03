@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,7 +16,11 @@ public class SimpleBlockingQueueTest {
         AtomicInteger consumerSum = new AtomicInteger(0);
         Thread producer = new Thread(() -> {
             for (int i = 1; i <= 10; i++) {
-                queue.offer(i);
+                try {
+                    queue.offer(i);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 producerSum.addAndGet(i);
             }
         });
@@ -45,10 +48,13 @@ public class SimpleBlockingQueueTest {
         final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(5);
         Thread producer = new Thread(
                 () -> {
-                    IntStream.range(0, 5).forEach(
-                            queue::offer
-                    );
-
+                    for (int i = 0; i < 5; i++) {
+                        try {
+                            queue.offer(i);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                 }
         );
         producer.start();
@@ -68,7 +74,7 @@ public class SimpleBlockingQueueTest {
         producer.join();
         consumer.interrupt();
         consumer.join();
+
         assertThat(buffer).containsExactly(0, 1, 2, 3, 4);
     }
-
 }

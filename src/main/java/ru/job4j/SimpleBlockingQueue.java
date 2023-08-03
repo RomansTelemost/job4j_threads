@@ -18,19 +18,15 @@ public class SimpleBlockingQueue<T> {
     }
 
     public boolean isEmpty() {
-        return queue.size() != 0;
+        return queue.peek() == null;
     }
 
-    public synchronized void offer(T value) {
+    public synchronized void offer(T value) throws InterruptedException {
         while (queue.size() == size) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            wait();
         }
         queue.offer(value);
-        notify();
+        notifyAll();
     }
 
     public synchronized T poll() throws InterruptedException {
@@ -38,7 +34,7 @@ public class SimpleBlockingQueue<T> {
             wait();
         }
         T value = queue.poll();
-        notify();
+        notifyAll();
         return value;
     }
 }

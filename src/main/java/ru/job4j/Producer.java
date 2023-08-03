@@ -13,6 +13,10 @@ public class Producer implements Runnable {
     @Override
     public void run() {
         System.out.println("Попытка поместить значение " + value);
-        simpleBlockingQueue.offer(value);
+        try {
+            simpleBlockingQueue.offer(value);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
