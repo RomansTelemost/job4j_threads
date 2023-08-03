@@ -28,9 +28,7 @@ public class ParallelSearch {
                             e.printStackTrace();
                         }
                     }
-
                 }
-
         );
         producer.start();
         producer.join();
