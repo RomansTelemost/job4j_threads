@@ -3,7 +3,7 @@ package ru.job4j;
 import net.jcip.annotations.NotThreadSafe;
 
 @NotThreadSafe
-public class Stack <T> {
+public class Stack<T> {
 
     private Node<T> head;
 
