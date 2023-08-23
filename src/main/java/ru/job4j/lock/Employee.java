@@ -19,7 +19,9 @@ public class Employee extends Thread {
         if (lock.tryLock()) {
             try {
                 System.out.println(name + " ждёт");
-                //lock.lock();
+                /**
+                 * lock.lock();
+                 */
                 System.out.println(name + " пользуется");
                 Thread.sleep(2000);
                 System.out.println(name + " закончил");
