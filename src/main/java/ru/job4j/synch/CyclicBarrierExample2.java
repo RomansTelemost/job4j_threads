@@ -11,20 +11,20 @@ public class CyclicBarrierExample2 {
     private CyclicBarrier cyclicBarrier;
     private List<List<Integer>> partialResults = Collections.synchronizedList(new ArrayList<>());
     private Random random = new Random();
-    public static int NUM_PARTIAL_RESULTS;
-    public static int NUM_WORKERS;
+    public static int numPartialResults;
+    public static int numWorkers;
 
     public void runSimulation(int numWorkers, int numberOfPartialResults) {
-        NUM_PARTIAL_RESULTS = numberOfPartialResults;
-        NUM_WORKERS = numWorkers;
+        numPartialResults = numberOfPartialResults;
+        numWorkers = numWorkers;
 
-        cyclicBarrier = new CyclicBarrier(NUM_WORKERS, new AggregatorThread(partialResults));
+        cyclicBarrier = new CyclicBarrier(numWorkers, new AggregatorThread(partialResults));
 
-        System.out.println("Spawning " + NUM_WORKERS
+        System.out.println("Spawning " + numWorkers
                 + " worker threads to compute "
-                + NUM_PARTIAL_RESULTS + " partial results each");
+                + numPartialResults + " partial results each");
 
-        for (int i = 0; i < NUM_WORKERS; i++) {
+        for (int i = 0; i < numWorkers; i++) {
             Thread worker = new Thread(new NumberCrunchedThread(cyclicBarrier, partialResults, random));
             worker.setName("Thread " + i);
             worker.start();

@@ -23,7 +23,7 @@ public class NumberCrunchedThread implements Runnable {
         String thisThreadName = Thread.currentThread().getName();
         List<Integer> partialResult = new ArrayList<>();
 
-        for (int i = 0; i < CyclicBarrierExample2.NUM_PARTIAL_RESULTS; i++) {
+        for (int i = 0; i < CyclicBarrierExample2.numPartialResults; i++) {
             Integer num = random.nextInt(10);
             System.out.println(thisThreadName + ": Crunching some numbers! Final result - " + num);
             partialResult.add(num);

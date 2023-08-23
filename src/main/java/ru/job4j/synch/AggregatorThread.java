@@ -15,14 +15,14 @@ public class AggregatorThread implements Runnable {
         String thisThreadName = Thread.currentThread().getName();
 
         System.out.println(
-                thisThreadName + ": Computing sum of " + CyclicBarrierExample2.NUM_WORKERS
-                        + " workers, having " + CyclicBarrierExample2.NUM_PARTIAL_RESULTS + " results each.");
+                thisThreadName + ": Computing sum of " + CyclicBarrierExample2.numWorkers
+                        + " workers, having " + CyclicBarrierExample2.numPartialResults + " results each.");
         int sum = 0;
 
         for (List<Integer> threadResult : partialResults) {
             System.out.print("Adding ");
             for (Integer partialResult : threadResult) {
-                System.out.print(partialResult+" ");
+                System.out.print(partialResult + " ");
                 sum += partialResult;
             }
             System.out.println();

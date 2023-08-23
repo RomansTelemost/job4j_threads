@@ -16,13 +16,12 @@ public class GetThread implements Runnable {
 
     @Override
     public void run() {
-        try{
+        try {
             System.out.println("Get1");
             System.out.println("Get2");
             message = exchanger.exchange(message, 1000, TimeUnit.MILLISECONDS);
             System.out.println("GetThread has received: " + message);
-        }
-        catch(InterruptedException ex){
+        } catch (InterruptedException ex) {
             ex.printStackTrace();
         } catch (TimeoutException to) {
             to.printStackTrace();
