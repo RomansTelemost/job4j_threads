@@ -1,8 +1,9 @@
 package ru.job4j;
 
+
 import org.junit.jupiter.api.RepeatedTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CASCountTest {
 
@@ -33,6 +34,6 @@ public class CASCountTest {
         thread1.join();
         thread2.join();
         thread3.join();
-        assertEquals(9, casCount.get());
+        assertThat(casCount.get()).isEqualTo(9);
     }
 }
